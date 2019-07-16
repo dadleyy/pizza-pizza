@@ -1,9 +1,9 @@
 import Component from '@ember/component';
-// import AssignmentChange from 'pizza-pizza/pods/components/pizza-maker/assignment-change';
+import AssignmentChange from 'pizza-pizza/pods/components/pizza-maker/assignment-change';
 import OrderAssignment from 'pizza-pizza/services/order-management/order-assignment';
 import * as Kinds from 'pizza-pizza/services/order-management/ingredients';
 import { classNames, tagName } from '@ember-decorators/component';
-// import { hasChange, getValue } from 'pizza-pizza/pods/components/pizza-maker/change-helpers';
+import { hasChange, getValue } from 'pizza-pizza/pods/components/pizza-maker/change-helpers';
 import { computed } from '@ember/object';
 import { map, filter } from '@ember/object/computed';
 import { always } from 'pizza-pizza/helpers/always';
@@ -33,14 +33,14 @@ function getTopping(assignment: OrderAssignment): ToppingItem | null {
 @tagName('aside')
 @classNames('column', 'is-3')
 class PizzaMakerSummary extends Component {
-  // changes!: Array<AssignmentChange>;
+  changes!: Array<AssignmentChange>;
   busy!: boolean;
 
-  // @filter('changes', hasChange)
-  // changed!: Array<AssignmentChange>;
+  @filter('changes', hasChange)
+  changed!: Array<AssignmentChange>;
 
-  // @map('changes', getValue)
-  // containers!: Array<OrderAssignment | null>;
+  @map('changes', getValue)
+  containers!: Array<OrderAssignment | null>;
 
   @filter('containers', Boolean)
   assignments!: Array<OrderAssignment>
@@ -64,8 +64,8 @@ class PizzaMakerSummary extends Component {
 
   @computed('changed.length', 'busy')
   get canSave(): boolean {
-    const { busy } = this;
-    return !this.busy;
+    const { busy, changed } = this;
+    return !busy && changed.length > 0;
   }
 }
 

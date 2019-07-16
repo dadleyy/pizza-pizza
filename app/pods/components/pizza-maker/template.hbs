@@ -27,40 +27,121 @@
       <tbody>
         {{#each changes as |change index|}}
           {{#order-assignment-change change as |kinds|}}
-            {{#kinds.no-change as |assignment|}}
-              <td class="no-change"></td>
-              <td colspan="3">
-                No Change
-              </td>
-            {{/kinds.no-change}}
-
-            {{#kinds.modify as |assignment|}}
-              <td class="modify"></td>
-              <td colspan="3">
-                Modify
-              </td>
-            {{/kinds.modify}}
-
+            {{!-- Add --}}
             {{#kinds.add as |assignment|}}
-              <td class="add"></td>
-              <td colspan="3">
-                Add
+              <td class="addition"></td>
+              {{#order-assignment assignment as |kinds|}}
+                {{kinds.crust (component "pizza-maker/crust-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.topping (component "pizza-maker/topping-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.sauce (component "pizza-maker/sauce-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+              {{/order-assignment}}
+              <td>
+                <article class="has-text-right">
+                  <button class="button" onClick={{action (mut changes) (compact (flatten (array (slice 0 index changes) (array (undo-change change)) (slice (inc index) changes.length changes))))}}>
+                    {{fa-icon "trash"}}
+                  </button>
+                </article>
               </td>
             {{/kinds.add}}
 
+            {{!-- NoChange --}}
+            {{#kinds.no-change as |assignment|}}
+              <td class="no-change"></td>
+              {{#order-assignment assignment as |kinds|}}
+                {{kinds.crust (component "pizza-maker/crust-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.topping (component "pizza-maker/topping-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.sauce (component "pizza-maker/sauce-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+              {{/order-assignment}}
+              <td class="has-text-right">
+                <button class="button" onClick={{action (mut changes) (replace-at changes index (remove-change change))}}>
+                  {{fa-icon "trash"}}
+                </button>
+              </td>
+            {{/kinds.no-change}}
+
+            {{!-- Modify --}}
+            {{#kinds.modify as |assignment|}}
+              <td class="modify"></td>
+              {{#order-assignment assignment as |kinds|}}
+                {{kinds.crust (component "pizza-maker/crust-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.topping (component "pizza-maker/topping-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.sauce (component "pizza-maker/sauce-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+              {{/order-assignment}}
+              <td class="has-text-right">
+                <button class="button" onClick={{action (mut changes) (replace-at changes index (undo-change change))}}>
+                  {{fa-icon "undo"}}
+                </button>
+                <button class="button" onClick={{action (mut changes) (replace-at changes index (remove-change change))}}>
+                  {{fa-icon "trash"}}
+                </button>
+              </td>
+            {{/kinds.modify}}
+
+            {{!-- Remove --}}
             {{#kinds.remove as |assignment|}}
               <td class="remove"></td>
-              <td colspan="3">
-                Remove
+              {{#order-assignment assignment as |kinds|}}
+                {{kinds.crust (component "pizza-maker/crust-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.topping (component "pizza-maker/topping-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+                {{kinds.sauce (component "pizza-maker/sauce-cells" onChange=(pipe
+                  (modify-change change)
+                  (replace-at changes index)
+                  (action (mut changes))
+                ))}}
+              {{/order-assignment}}
+              <td class="has-text-right">
+                <button class="button" onClick={{action (mut changes) (replace-at changes index (undo-change change))}}>
+                  {{fa-icon "undo"}}
+                </button>
               </td>
             {{/kinds.remove}}
           {{/order-assignment-change}}
         {{else}}
-          <tr data-role="empty-changes">
-            <td colspan="4">
-              No Assignments
-            </td>
-          </tr>
+          <tr><td colspan="4"><p>This pizza is empty, please pick a crust to start</p></td></tr>
         {{/each}}
       </tbody>
     </table>

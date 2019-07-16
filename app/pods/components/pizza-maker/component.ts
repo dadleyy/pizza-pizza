@@ -7,7 +7,15 @@ import OrderManagement from 'pizza-pizza/services/order-management';
 import { Topping, Crust, Sauce } from 'pizza-pizza/services/order-management/order-assignment';
 import ToppingStore from 'pizza-pizza/services/topping-store';
 import SauceStore from 'pizza-pizza/services/sauce-store';
+import OrderAssignment from 'pizza-pizza/services/order-management/order-assignment';
+import { getValues, hasChange } from 'pizza-pizza/pods/components/pizza-maker/change-helpers';
 import * as Kinds from 'pizza-pizza/services/order-management/ingredients';
+import AssignmentChange, {
+  Remove,
+  Modify,
+  NoChange,
+  Add
+} from 'pizza-pizza/pods/components/pizza-maker/assignment-change';
 
 class PizzaMaker extends Component {
   @debugLogger
@@ -17,7 +25,7 @@ class PizzaMaker extends Component {
   onDelete!: () => void;
 
   busy: boolean = false;
-  // changes: Array<AssignmentChange> = [];
+  changes: Array<AssignmentChange> = [];
 
   @service
   orderManagement!: OrderManagement;
@@ -30,9 +38,9 @@ class PizzaMaker extends Component {
 
   didReceiveAttrs() {
     const { order } = this;
-    // const changes = order.assignments.map(NoChange);
+    const changes = order.assignments.map(NoChange);
     this.debug('received attrs - order "%s"', order.id);
-    // this.set('changes', changes);
+    this.set('changes', changes);
   }
 
   @action
@@ -48,53 +56,36 @@ class PizzaMaker extends Component {
   @action
   async save() {
     this.set('busy', true);
-    this.debug('saving!');
-    /*
     const { orderManagement, order, changes } = this;
+    const { id } = order;
+    this.debug('saving!');
     const assignments = getValues(changes);
     await orderManagement.update({ id }, assignments);
-    */
-    const order = { ...this.order };
     this.set('busy', false)
-    this.onSave(order);
+    this.onSave({ id, assignments });
   }
 
   @action
   addCrust(close: () => void) {
-    // const { changes } = this;
+    const { changes } = this;
     this.debug('adding crust');
-    // this.set('changes', [...changes, Add(Crust(Kinds.Crust.DEFAULT))]);
+    this.set('changes', [...changes, Add(Crust(Kinds.Crust.DEFAULT))]);
     close();
   }
 
   @action
-  modifyChange() {
-    this.debug('modify change');
-  }
-
-  @action
-  removeChange() {
-    this.debug('removing change');
-  }
-
-  @action
-  undoChange() {
-    this.debug('undoing change');
-  }
-
-  @action
   addTopping(close: () => void) {
-    // const { changes, toppingStore } = this;
+    const { changes, toppingStore } = this;
     this.debug('adding topping');
-    // this.set('changes', [...changes, Add(Topping(toppingStore.default, Kinds.ToppingPresence.FULL))]);
+    this.set('changes', [...changes, Add(Topping(toppingStore.default, Kinds.ToppingPresence.FULL))]);
     close();
   }
 
   @action
   addSauce(close: () => void) {
-    // const { changes, sauceStore } = this;
+    const { changes, sauceStore } = this;
     this.debug('adding sauce');
-    // this.set('changes', [...changes, Add(Sauce(sauceStore.default, Kinds.SaucePresence.NORMAL))]);
+    this.set('changes', [...changes, Add(Sauce(sauceStore.default, Kinds.SaucePresence.NORMAL))]);
     close();
   }
 }
