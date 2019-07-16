@@ -1,0 +1,9 @@
+<td>
+  Sauce
+</td>
+<td>
+  <article class="is-flex field is-grouped">
+    {{sauce-selector class="control" sauce=sauce onSelect=(action "changeSauce")}}
+    {{sauce-presence-selector presence=presence onSelect=(action "changePresence")}}
+  </article>
+</td>

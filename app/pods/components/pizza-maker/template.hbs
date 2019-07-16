@@ -1,0 +1,76 @@
+<main class="pw content columns">
+  <aside class="column is-9">
+    <table class="table is-striped is-fullwidth is-bordered">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th class="has-text-right">
+            {{#basic-dropdown as |dropdown|}}
+              <div class="is-inline-block">
+                {{#dropdown.Trigger class="is-inline-block"}}
+                  <button class="button">{{fa-icon "plus"}}</button>
+                {{/dropdown.Trigger}}
+              </div>
+              {{#dropdown.Content class="dropdown-menu"}}
+                <section class="dropdown-content">
+                  <a class="dropdown-item" role="button" onClick={{action "addCrust" dropdown.actions.close}}>Crust</a>
+                  <a class="dropdown-item" role="button" onClick={{action "addTopping" dropdown.actions.close}}>Topping</a>
+                  <a class="dropdown-item" role="button" onClick={{action "addSauce" dropdown.actions.close}}>Sauce</a>
+                </section>
+              {{/dropdown.Content}}
+            {{/basic-dropdown}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each changes as |change index|}}
+          {{#order-assignment-change change as |kinds|}}
+            {{#kinds.no-change as |assignment|}}
+              <td class="no-change"></td>
+              <td colspan="3">
+                No Change
+              </td>
+            {{/kinds.no-change}}
+
+            {{#kinds.modify as |assignment|}}
+              <td class="modify"></td>
+              <td colspan="3">
+                Modify
+              </td>
+            {{/kinds.modify}}
+
+            {{#kinds.add as |assignment|}}
+              <td class="add"></td>
+              <td colspan="3">
+                Add
+              </td>
+            {{/kinds.add}}
+
+            {{#kinds.remove as |assignment|}}
+              <td class="remove"></td>
+              <td colspan="3">
+                Remove
+              </td>
+            {{/kinds.remove}}
+          {{/order-assignment-change}}
+        {{else}}
+          <tr data-role="empty-changes">
+            <td colspan="4">
+              No Assignments
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </aside>
+  {{yield (hash
+    summary=(component "pizza-maker/summary"
+      busy=busy
+      changes=changes
+      save=(action "save")
+      delete=(action "delete")
+    )
+  )}}
+</main>

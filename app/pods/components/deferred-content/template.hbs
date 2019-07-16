@@ -1,0 +1,7 @@
+{{#if (eq state "PENDING")}}
+  {{yield (hash pending=(component "deferred-content/yield"))}}
+{{else if (eq state "FULFILLED")}}
+  {{yield (hash fulfilled=(component "deferred-content/yield" data=resolution))}}
+{{else}}
+  {{yield (hash errored=(component "deferred-content/yield" data=error))}}
+{{/if}}

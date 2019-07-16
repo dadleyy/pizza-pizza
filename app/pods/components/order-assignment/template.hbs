@@ -1,0 +1,7 @@
+{{#if (eq data.kind "Crust")}}
+  {{yield (hash crust=(component "order-assignment/yield" data=data.data))}}
+{{else if (eq data.kind "Topping")}}
+  {{yield (hash topping=(component "order-assignment/yield" data=data.data))}}
+{{else if (eq data.kind "Sauce")}}
+  {{yield (hash sauce=(component "order-assignment/yield" data=data.data))}}
+{{/if}}

@@ -1,0 +1,14 @@
+{{#basic-dropdown as |dropdown|}}
+  <div class="is-inline-block">
+    {{#dropdown.Trigger}}
+      <button class="button">{{if selection selection "Select Level"}}</button>
+    {{/dropdown.Trigger}}
+  </div>
+  {{#dropdown.Content class="dropdown-menu"}}
+    <section class="dropdown-content">
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "normal"}}>Normal</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "light"}}>Light</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "heavy"}}>Heavy</a>
+    </section>
+  {{/dropdown.Content}}
+{{/basic-dropdown}}

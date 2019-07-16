@@ -1,0 +1,26 @@
+{{#basic-dropdown onOpen=(action "opened") onClose=(action "closed") as |dropdown|}}
+  <div class="is-inline-block">
+    {{#dropdown.Trigger}}
+      <button class="button">{{if topping topping.name "Select Topping"}}</button>
+    {{/dropdown.Trigger}}
+  </div>
+  {{#dropdown.Content class="dropdown-menu"}}
+    <section class="dropdown-content">
+      {{#deferred-content request as |state|}}
+        {{#state.fulfilled as |data|}}
+          {{#each data.toppings as |topping|}}
+            <a class="dropdown-item" role="button" onClick={{action onSelect topping}}>{{topping.name}}</a>
+          {{else}}
+            <div class="dropdown-item">No available toppings.</div>
+          {{/each}}
+        {{/state.fulfilled}}
+        {{#state.errored}}
+          <div class="dropdown-item">Unable to load toppings</div>
+        {{/state.errored}}
+        {{#state.pending}}
+          <div class="dropdown-item">Loading...</div>
+        {{/state.pending}}
+      {{/deferred-content}}
+    </section>
+  {{/dropdown.Content}}
+{{/basic-dropdown}}

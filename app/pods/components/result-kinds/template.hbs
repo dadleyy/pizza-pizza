@@ -1,0 +1,5 @@
+{{#if ok}}
+  {{yield (hash ok=(component "result-kinds/yield" data=contents))}}
+{{else}}
+  {{yield (hash err=(component "result-kinds/yield" data=errors))}}
+{{/if}}

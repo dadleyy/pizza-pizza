@@ -1,0 +1,16 @@
+{{#basic-dropdown as |dropdown|}}
+  <div class="is-inline-block">
+    {{#dropdown.Trigger}}
+      <button class="button">{{or (crust-name crust) "Select Crust"}}</button>
+    {{/dropdown.Trigger}}
+  </div>
+  {{#dropdown.Content class="dropdown-menu"}}
+    <section class="dropdown-content">
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "default"}}>Standard</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "pan"}}>Pan</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "thin"}}>Thin</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "deep"}}>Deep Dish</a>
+      <a class="dropdown-item" role="button" onClick={{action "select" dropdown.actions.close "cheesy"}}>Cheesy</a>
+    </section>
+  {{/dropdown.Content}}
+{{/basic-dropdown}}
