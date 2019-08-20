@@ -1,8 +1,9 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (section, button, text)
+import Html exposing (section, article, button, text)
 import Html.Attributes exposing (class)
+import Html.Events exposing (onClick)
 
 type Message = AddItem Item
 
@@ -28,6 +29,10 @@ init _ =
 
 -- VIEW
 
+renderItem : Item -> Html.Html msg
+renderItem item =
+  article [] []
+
 view : Model ->  Browser.Document Message
 view model =
   {
@@ -35,11 +40,11 @@ view model =
     body = [
       section [ class "pizza-maker" ] [
         section [ class "pizza-maker-controls" ] [
-          button [ ] [ text "add topping" ],
+          button [ onClick (AddItem Topping) ] [ text "add topping" ],
           button [ ] [ text "add crust" ],
           button [ ] [ text "add sauce" ]
         ],
-        section [ class "pizza-maker-view" ] []
+        section [ class "pizza-maker-view" ] (List.map renderItem model.items)
       ]
     ]
   }
@@ -49,7 +54,9 @@ view model =
 
 update : Message -> Model -> ( Model, Cmd msg )
 update msg model =
-  ( { model | items = [] } , Cmd.none )
+  case msg of
+    AddItem item ->
+      ( { model | items = item :: model.items } , Cmd.none )
 
 -- Subscribe
 
