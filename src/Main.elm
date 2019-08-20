@@ -4,7 +4,7 @@ import Browser
 import Html exposing (section)
 import Html.Attributes exposing (class)
 
-type Message = Foo
+type Message = AddItem Item
 
 type Item = Topping | Crust | Sauce
 
