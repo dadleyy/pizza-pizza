@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (section, button)
+import Html exposing (section, button, text)
 import Html.Attributes exposing (class)
 
 type Message = AddItem Item
@@ -35,7 +35,9 @@ view model =
     body = [
       section [ class "pizza-maker" ] [
         section [ class "pizza-maker-controls" ] [
-          button [ ], ["whoa"]
+          button [ ] [ text "add topping" ],
+          button [ ] [ text "add crust" ],
+          button [ ] [ text "add sauce" ]
         ],
         section [ class "pizza-maker-view" ] []
       ]
