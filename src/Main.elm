@@ -6,9 +6,9 @@ import Html.Attributes exposing (class, disabled)
 import Html.Events exposing (onClick)
 
 type Message = AddItem Item | RemoveChange Int | Save | UndoChange Int
-
-type Item = Topping | Crust | Sauce
-
+type Topping = Pepperoni | Cheese
+type Crust = Thick | Thin
+type Item = Topping Topping | Crust Crust | Sauce
 type Change = Addition Item | Removal Item | Modify Item (List Item) | NoChange Item
 
 type alias Model = { items : List Change }
@@ -34,9 +34,13 @@ itemDisplay : Item -> Html.Html Message
 itemDisplay item =
   aside [ class "item-display" ] [
     case item of
-      Crust ->
-        text "cust"
-      Topping ->
+      Crust crust ->
+        case crust of
+          Thick -> aside [] [
+           text "cust: thick"
+          ]
+          Thin -> aside [] [ text "cust: thin" ]
+      Topping _ ->
         text "topping"
       Sauce ->
         text "sauce"
@@ -76,8 +80,8 @@ view model =
     body = [
       section [ class "pizza-maker" ] [
         section [ class "pizza-maker-controls" ] [
-          button [ onClick (AddItem Topping) ] [ text "add topping" ],
-          button [ onClick (AddItem Crust), disabled (hasCrust model.items) ] [ text "add crust" ],
+          button [ onClick (AddItem (Topping Pepperoni)) ] [ text "add topping" ],
+          button [ onClick (AddItem (Crust Thin)), disabled (hasCrust model.items) ] [ text "add crust" ],
           button [ onClick (AddItem Sauce) ] [ text "add sauce" ],
           button [ onClick Save ] [ text "save" ]
         ],
@@ -103,8 +107,8 @@ isCrust maybe =
     Nothing -> False
     Just item ->
       case item of
-        Crust -> True
-        Topping -> False
+        Crust _ -> True
+        Topping _ -> False
         Sauce -> False
 
 hasCrust : List Change -> Bool
