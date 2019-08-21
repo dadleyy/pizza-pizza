@@ -115,7 +115,7 @@ removeChange : Int -> List Change -> List Change
 removeChange index list =
   case List.head (List.drop index list) of
     Nothing ->
-      []
+      list
     Just item ->
       case item of
         NoChange value ->

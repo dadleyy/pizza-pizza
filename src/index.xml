@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<app>
+  <title>pizza-pizza</title>
+  <meta>
+  </meta>
+  <boot>
+    (function() {
+      const node = document.createElement('main');
+      Elm.Main.init({ node });
+    })();
+  </boot>
+</app>
+
