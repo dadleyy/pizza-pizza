@@ -2,6 +2,14 @@
 <app>
   <title>pizza-pizza</title>
   <meta>
+    <tag>
+      <name>description</name>
+      <value>pizza maker</value>
+    </tag>
+    <tag>
+      <name>keywords</name>
+      <value>pizza, elm, functional programming</value>
+    </tag>
   </meta>
   <boot>
     (function() {

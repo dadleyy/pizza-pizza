@@ -8,6 +8,16 @@
       <head>
         <title><xsl:value-of select="title" /></title>
         <link rel="stylesheet" href="{$style-src}" />
+        <xsl:for-each select="meta/tag" >
+          <meta>
+            <xsl:attribute name="content">
+              <xsl:value-of select="value" />
+            </xsl:attribute>
+            <xsl:attribute name="name">
+              <xsl:value-of select="name" />
+            </xsl:attribute>
+          </meta>
+        </xsl:for-each>
         <script src="{$script-src}"></script>
       </head>
       <body>
