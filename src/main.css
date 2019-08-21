@@ -1,0 +1,85 @@
+@import url("reset.css");
+
+:root {
+  --border-color: #e0e0e0;
+}
+
+html, body {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pizza-maker {
+  padding: 16px 0;
+  margin: 0 16px;
+}
+
+.pizza-maker-controls {
+  margin: 0 0 8px 0;
+}
+
+.pizza-maker-view {
+  display: block;
+}
+
+.item-modify,
+.item-removal,
+.item-addition,
+.item-no-change {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.item-modify:first-child,
+.item-removal:first-child,
+.item-addition:first-child,
+.item-no-change:first-child {
+  border-top: 1px solid var(--border-color);
+}
+
+.item-display {
+  margin-right: 8px;
+  padding: 0 0 0 8px;
+}
+
+.item-controls {
+  margin-left: auto;
+  padding: 0 8px 0 0;
+}
+
+.item-modify:after,
+.item-removal:after,
+.item-addition:after,
+.item-no-change:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+}
+
+.item-modify:after {
+  background-color: blue;
+}
+
+.item-removal:after {
+  background-color: red;
+}
+
+.item-addition:after {
+  background-color: green;
+}
+
+.item-no-change:after {
+  background-color: gray;
+}
