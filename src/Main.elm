@@ -36,9 +36,7 @@ itemDisplay item =
     case item of
       Crust crust ->
         case crust of
-          Thick -> aside [] [
-           text "cust: thick"
-          ]
+          Thick -> aside [] [ text "cust: thick" ]
           Thin -> aside [] [ text "cust: thin" ]
       Topping _ ->
         text "topping"
