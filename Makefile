@@ -25,6 +25,7 @@ RELEASE_DIST=$(DIST)/release/$(NAME)
 SCRIPT=$(APP_DIST)/main.js
 INDEX=$(patsubst src/%.xml,$(APP_DIST)/%.html,$(INDEX_XML))
 STYLES=$(patsubst src/%.css,$(APP_DIST)/%.css,$(STYLE_FILES))
+TESTS=$(patsubst %Main.elm,%Main.test.elm,$(ELM_MAIN))
 
 RELEASE_SCRIPT=$(patsubst %.js,%.min.js,$(patsubst $(APP_DIST)%,$(RELEASE_DIST)%,$(SCRIPT)))
 RELEASE_INDEX=$(patsubst $(APP_DIST)%,$(RELEASE_DIST)%,$(INDEX))
@@ -54,6 +55,10 @@ clean:
 
 clean-all:
 	$(RM) $(DIST)
+
+test:
+	@echo "+ [pizza-pizza] compiling tests: $(TESTS)"
+	$(ELM) make $(TESTS) --output $(DIST)/tests/main.js
 
 $(ARTIFACT): $(RELEASE_INDEX) $(RELEASE_SCRIPT) $(RELEASE_STYLES)
 	@echo "+ [pizza-pizza:artifact] creating artifact"

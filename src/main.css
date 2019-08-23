@@ -83,3 +83,13 @@ html, body {
 .item-no-change:after {
   background-color: gray;
 }
+
+.ingredient-field {
+  display: flex;
+  align-items: center;
+}
+
+.ingredient-label {
+  display: block;
+  margin-right: 16px;
+}
