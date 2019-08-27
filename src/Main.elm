@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (article, aside, button, fieldset, legend, option, section, select, text)
+import Html exposing (article, aside, button, fieldset, legend, option, section, select, span, text)
 import Html.Attributes exposing (class, disabled, selected, value)
 import Html.Events exposing (onClick, onInput)
 
@@ -99,6 +99,11 @@ itemDisplay item index =
         ]
 
 
+faIcon : String -> Html.Html Message
+faIcon icon =
+    span [ class ("fas fa-" ++ icon) ] []
+
+
 renderItem : Int -> Change -> Html.Html Message
 renderItem index item =
     case item of
@@ -106,7 +111,7 @@ renderItem index item =
             article [ class "item-addition" ]
                 [ itemDisplay addition index
                 , aside [ class "item-controls" ]
-                    [ button [ onClick (RemoveChange index) ] [ text "remove" ]
+                    [ button [ onClick (RemoveChange index) ] [ faIcon "trash" ]
                     ]
                 ]
 
@@ -114,7 +119,7 @@ renderItem index item =
             article [ class "item-removal" ]
                 [ itemDisplay removal index
                 , aside [ class "item-controls" ]
-                    [ button [ onClick (UndoChange index) ] [ text "undo" ]
+                    [ button [ onClick (UndoChange index) ] [ faIcon "undo" ]
                     ]
                 ]
 
@@ -122,7 +127,7 @@ renderItem index item =
             article [ class "item-modify" ]
                 [ itemDisplay current index
                 , aside [ class "item-controls" ]
-                    [ button [ onClick (UndoChange index) ] [ text "undo" ]
+                    [ button [ onClick (UndoChange index) ] [ faIcon "undo" ]
                     ]
                 ]
 
@@ -130,7 +135,7 @@ renderItem index item =
             article [ class "item-no-change" ]
                 [ itemDisplay value index
                 , aside [ class "item-controls" ]
-                    [ button [ onClick (RemoveChange index) ] [ text "remove" ]
+                    [ button [ onClick (RemoveChange index) ] [ faIcon "trash" ]
                     ]
                 ]
 
@@ -241,7 +246,12 @@ undoChange index list =
                     List.concat [ List.take index list, [ Removal value ], List.drop (index + 1) list ]
 
                 Modify current history ->
-                    list
+                    case List.head history of
+                        Nothing ->
+                            list
+
+                        Just rollback ->
+                            List.concat [ List.take index list, [ NoChange rollback ], List.drop (index + 1) list ]
 
                 Removal removal ->
                     List.concat [ List.take index list, [ NoChange removal ], List.drop (index + 1) list ]

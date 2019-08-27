@@ -2,17 +2,24 @@ NAME=pizza-pizza
 ELM=$(shell npm bin)/elm
 ELM_TEST=$(shell npm bin)/elm-test
 FORMAT=$(shell npm bin)/elm-format
-UGLIFY=$(shell which uglifyjs)
+UGLIFY=$(shell npm bin)/uglifyjs
 XSLT=$(shell which xsltproc)
 RM=rm -rf
 MKDIR=mkdir -p
 COPY=cp
 
+FONTAWESOME_ID=000
+
 DIST=./dist
 ARTIFACT=$(DIST)/artifacts/pizza-pizza.tar.gz
 
-INDEX_PARAMS=--stringparam style-src main.css --stringparam script-src main.js
-RELEASE_INDEX_PARAMS=--stringparam style-src main.css --stringparam script-src main.min.js
+INDEX_PARAMS=--stringparam style-src main.css \
+						 --stringparam script-src main.js \
+						 --stringparam fontawesome-id $(FONTAWESOME_ID)
+
+RELEASE_INDEX_PARAMS=--stringparam style-src main.css \
+										 --stringparam script-src main.min.js \
+										 --stringparam fontawesome-id $(FONTAWESOME_ID)
 
 XML_FILES=$(shell git ls-files | grep ".xml")
 STYLE_FILES=$(shell git ls-files | grep ".css")

@@ -3,11 +3,13 @@
   <xsl:output method="html" indent="yes" doctype-system="about:legacy-compat" />
   <xsl:param name="script-src" />
   <xsl:param name="style-src" />
+  <xsl:param name="fontawesome-id" />
   <xsl:template match="app">
     <html lang="en">
       <head>
         <title><xsl:value-of select="title" /></title>
         <link rel="stylesheet" href="{$style-src}" />
+        <script src="https://kit.fontawesome.com/{$fontawesome-id}.js"></script>
         <xsl:for-each select="meta/tag" >
           <meta>
             <xsl:attribute name="content">
