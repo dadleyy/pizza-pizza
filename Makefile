@@ -1,5 +1,7 @@
 NAME=pizza-pizza
-ELM=$(shell which elm)
+ELM=$(shell npm bin)/elm
+ELM_TEST=$(shell npm bin)/elm-test
+FORMAT=$(shell npm bin)/elm-format
 UGLIFY=$(shell which uglifyjs)
 XSLT=$(shell which xsltproc)
 RM=rm -rf
@@ -31,7 +33,7 @@ RELEASE_SCRIPT=$(patsubst %.js,%.min.js,$(patsubst $(APP_DIST)%,$(RELEASE_DIST)%
 RELEASE_INDEX=$(patsubst $(APP_DIST)%,$(RELEASE_DIST)%,$(INDEX))
 RELEASE_STYLES=$(patsubst $(APP_DIST)/%.css,$(RELEASE_DIST)/%.css,$(STYLES))
 
-.PHONY: all clean debug
+.PHONY: all clean debug format develop
 
 all: $(INDEX) $(SCRIPT) $(STYLES)
 
@@ -44,6 +46,13 @@ debug:
 release: $(RELEASE_SCRIPT) $(RELEASE_INDEX) $(RELEASE_STYLES)
 
 artifact: $(ARTIFACT)
+
+develop:
+	$(ELM) reactor
+
+format:
+	@echo $(FORMAT)
+	$(FORMAT) $(ELM_FILES) --yes
 
 clean:
 	$(RM) $(INDEX)
@@ -58,7 +67,7 @@ clean-all:
 
 test:
 	@echo "+ [pizza-pizza] compiling tests: $(TESTS)"
-	$(ELM) make $(TESTS) --output $(DIST)/tests/main.js
+	$(ELM_TEST) tests/*.elm
 
 $(ARTIFACT): $(RELEASE_INDEX) $(RELEASE_SCRIPT) $(RELEASE_STYLES)
 	@echo "+ [pizza-pizza:artifact] creating artifact"

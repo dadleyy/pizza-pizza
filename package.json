@@ -1,0 +1,22 @@
+{
+  "name": "pizza-pizza",
+  "version": "0.0.1",
+  "description": "elm-impl",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dadleyy/pizza-pizza.git"
+  },
+  "author": "danny hadley <dadleyy@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dadleyy/pizza-pizza/issues"
+  },
+  "homepage": "https://github.com/dadleyy/pizza-pizza#readme",
+  "devDependencies": {
+    "elm": "^0.19.0-no-deps",
+    "elm-format": "^0.8.2",
+    "elm-test": "^0.19.0-rev6"
+  },
+  "dependencies": {}
+}
