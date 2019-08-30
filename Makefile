@@ -1,5 +1,6 @@
 NAME=pizza-pizza
 ELM=$(shell npm bin)/elm
+NPM=$(shell which npm)
 ELM_TEST=$(shell npm bin)/elm-test
 FORMAT=$(shell npm bin)/elm-format
 UGLIFY=$(shell npm bin)/uglifyjs
@@ -55,7 +56,7 @@ release: $(RELEASE_SCRIPT) $(RELEASE_INDEX) $(RELEASE_STYLES)
 artifact: $(ARTIFACT)
 
 develop:
-	$(ELM) reactor
+	$(NPM) start
 
 format:
 	@echo $(FORMAT)
@@ -74,7 +75,7 @@ clean-all:
 
 test:
 	@echo "+ [pizza-pizza] compiling tests: $(TESTS)"
-	$(ELM_TEST) tests/*.elm
+	$(NPM) test
 
 $(ARTIFACT): $(RELEASE_INDEX) $(RELEASE_SCRIPT) $(RELEASE_STYLES)
 	@echo "+ [pizza-pizza:artifact] creating artifact"

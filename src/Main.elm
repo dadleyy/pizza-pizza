@@ -76,7 +76,7 @@ modifyCrust parser index selection =
 crustControl : Crust -> Int -> Html.Html Message
 crustControl crust index =
     fieldset [ class "ingredient-field" ]
-        [ legend [] [ text ("crust: " ++ crust.name) ]
+        [ legend [ class "ingredient-field-label" ] [ text "crust" ]
         , select [ class "crust-select", value crust.id, onInput (modifyCrust parseCrust index) ]
             [ option [ selected True, value "thin" ] [ text "thin" ]
             , option [ selected False, value "thick" ] [ text "thick" ]

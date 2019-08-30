@@ -50,6 +50,8 @@ html, body {
 }
 
 .item-display {
+  display: flex;
+  align-items: center;
   margin-right: 8px;
   padding: 0 0 0 8px;
 }
@@ -89,8 +91,14 @@ html, body {
 }
 
 .ingredient-field {
-  display: flex;
-  align-items: center;
+  display: block;
+  overflow: hidden;
+}
+
+.ingredient-field-label {
+  display: block;
+  float: left;
+  margin-right: 8px;
 }
 
 .ingredient-label {
