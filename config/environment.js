@@ -15,9 +15,6 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === 'development') {
-  }
-
   if (environment === 'test') {
     ENV.locationType = 'none';
     ENV.APP.LOG_ACTIVE_GENERATION = false;

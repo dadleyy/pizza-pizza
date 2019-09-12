@@ -1,0 +1,5 @@
+{{#if hasBlock}}
+  {{yield (get data 0) (get data 1)}}
+{{else}}
+  {{component component (get data 0) (get data 1)}}
+{{/if}}

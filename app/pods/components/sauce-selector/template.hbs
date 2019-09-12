@@ -1,0 +1,26 @@
+{{#basic-dropdown onOpen=(action "opened") onClose=(action "closed") as |dropdown|}}
+  <div class="is-inline-block">
+    {{#dropdown.Trigger}}
+      <button class="button">{{if sauce sauce.name "Select Sauce"}}</button>
+    {{/dropdown.Trigger}}
+  </div>
+  {{#dropdown.Content class="dropdown-menu"}}
+    <section class="dropdown-content">
+      {{#deferred-content request as |state|}}
+        {{#state.fulfilled as |data|}}
+          {{#each data.sauces as |sauce|}}
+            <a class="dropdown-item" role="button" onClick={{action onSelect sauce}}>{{sauce.name}}</a>
+          {{else}}
+            <div class="dropdown-item">No available sauces.</div>
+          {{/each}}
+        {{/state.fulfilled}}
+        {{#state.errored}}
+          <div class="dropdown-item">Unable to load sauces.</div>
+        {{/state.errored}}
+        {{#state.pending}}
+          <div class="dropdown-item">Loading...</div>
+        {{/state.pending}}
+      {{/deferred-content}}
+    </section>
+  {{/dropdown.Content}}
+{{/basic-dropdown}}

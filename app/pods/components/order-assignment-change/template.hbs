@@ -1,0 +1,9 @@
+{{#if (eq data.kind "NoChange")}}
+  {{yield (hash no-change=(component "order-assignment-change/yield" data=data.data))}}
+{{else if (eq data.kind "Add")}}
+  {{yield (hash add=(component "order-assignment-change/yield" data=data.data))}}
+{{else if (eq data.kind "Remove")}}
+  {{yield (hash remove=(component "order-assignment-change/yield" data=data.data))}}
+{{else if (eq data.kind "Modify")}}
+  {{yield (hash modify=(component "order-assignment-change/yield" data=data.data))}}
+{{/if}}

@@ -1,0 +1,17 @@
+{{#result-kinds model.order as |result|}}
+  {{#result.ok as |order|}}
+    <header class="pw pad-1-tb level">
+      <aside class="level-item level-left"><h2>Viewing order: {{order.id}}</h2></aside>
+      <aside class="level-item level-right">
+        {{#link-to "orders" class="button" tagName="button"}}Back to orders{{/link-to}}
+      </aside>
+    </header>
+    <main>{{outlet}}</main>
+  {{/result.ok}}
+  {{#result.err as |errors|}}
+    <input type="hidden" value={{errors}}>
+    <section class="pw pad-1-tb">
+      <p>unable to find order</p>
+    </section>
+  {{/result.err}}
+{{/result-kinds}}

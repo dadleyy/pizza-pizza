@@ -1,0 +1,7 @@
+<td>Topping</td>
+<td>
+  <article class="is-flex field is-grouped">
+    {{topping-selector class="control" topping=topping onSelect=(action "changeTopping")}}
+    {{topping-presence-selector level=presence onSelect=(action "changePresence")}}
+  </article>
+</td>

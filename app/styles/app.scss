@@ -1,3 +1,78 @@
-html, body {
+@import "reset";
+@import "ember-basic-dropdown";
+@import "bulma";
+
+hr {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, body > .ember-view {
   height: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+body > .ember-view > main {
+  min-height: calc(100% - 40px);
+}
+
+.pw {
+  margin: 0 32px;
+}
+
+.pad-1 {
+  padding: 16px;
+}
+
+.pad-1-tb {
+  padding: 16px 0;
+}
+
+.pad-1-lr {
+  padding: 0 16px;
+}
+
+.is-strikethrough {
+  text-decoration: line-through;
+}
+
+.has-opacity-50 {
+  opacity: 0.5;
+}
+
+td.remove,
+td.modify,
+td.addition,
+td.no-change {
+  position: relative;
+}
+
+td.modify:after,
+td.remove:after,
+td.addition:after,
+td.no-change:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+}
+
+td.no-change:after {
+  background: $grey-light;
+}
+
+td.modify:after {
+  background: $yellow;
+}
+
+td.addition:after {
+  background: $green;
+}
+
+td.remove:after {
+  background: $red;
 }

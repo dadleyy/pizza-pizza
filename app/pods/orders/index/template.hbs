@@ -1,0 +1,45 @@
+<header class="pw level pad-1-tb">
+  <aside class="level-item has-text-left level-left">
+    <h1>Your orders</h1>
+  </aside>
+  <div class="level-item has-text-right level-right">
+    <button class="button" onClick={{action "create"}}>Create</button>
+  </div>
+</header>
+<section class="pw level content">
+  <table class="table is-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#result-kinds model.orders as |kinds|}}
+        {{#kinds.ok as |result|}}
+          {{#each result.orders as |order|}}
+            <tr class="pad-1-tb">
+              <td>{{#link-to "orders.order" order.id}}{{order.id}}{{/link-to}}</td>
+              <td class="has-text-right">
+                <button class="button" onClick={{action "delete" order.id}}>
+                  {{fa-icon "trash"}}
+                </button>
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="2">
+                <div class="level">
+                  No orders to display. <button class="button" onClick={{action "create"}}>Create</button>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        {{/kinds.ok}}
+        {{#kinds.err}}
+          <tr><td>Unable to load orders</td></tr>
+        {{/kinds.err}}
+      {{/result-kinds}}
+    </tbody>
+  </table>
+</section>

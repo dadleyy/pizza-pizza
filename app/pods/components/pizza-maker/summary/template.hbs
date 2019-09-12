@@ -1,0 +1,27 @@
+<header>
+  <h2>Order Summary</h2>
+</header>
+<main class="content">
+  <ul class="list is-marginless">
+    <li class="list-item">Crust: {{or (crust-name crust) "None"}}</li>
+    <li class="list-item">
+      <p>Toppings: {{if (eq toppings.length 0) "None"}}</p>
+      {{#if toppings.length}}
+        <ul>
+          {{#each toppings as |topping|}}
+            <li>{{topping.topping.name}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </li>
+    <li class="list-item">Sauce: {{or sauce.name "None"}}</li>
+  </ul>
+</main>
+<footer>
+  <button class="button is-primary" disabled={{not canSave}} onClick={{action save}}>
+    Save
+  </button>
+  <button class="button is-danger" onClick={{action delete}}>
+    Delete
+  </button>
+</footer>
