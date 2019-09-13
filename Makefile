@@ -8,6 +8,7 @@ XSLT=$(shell which xsltproc)
 RM=rm -rf
 MKDIR=mkdir -p
 COPY=cp
+NODE_MODULES=./node_modules
 
 FONTAWESOME_ID=000
 
@@ -72,10 +73,14 @@ clean:
 
 clean-all:
 	$(RM) $(DIST)
+	$(RM) $(NODE_MODULES)
 
 test:
 	@echo "+ [pizza-pizza] compiling tests: $(TESTS)"
 	$(NPM) test
+
+$(NODE_MODULES):
+	$(NPM) i
 
 $(ARTIFACT): $(RELEASE_INDEX) $(RELEASE_SCRIPT) $(RELEASE_STYLES)
 	@echo "+ [pizza-pizza:artifact] creating artifact"
@@ -99,7 +104,7 @@ $(RELEASE_STYLES): $(STYLES)
 $(APP_DIST):
 	$(MKDIR) $(APP_DIST)
 
-$(INDEX): $(INDEX_XML) $(APP_DIST) $(INDEX_XSLT)
+$(INDEX): $(INDEX_XML) $(APP_DIST) $(INDEX_XSLT) $(NODE_MODULES)
 	@echo "+ [pizza-pizza:index] creating index.html [$(INDEX_XML)]"
 	$(XSLT) $(INDEX_PARAMS) --output $(INDEX) $(INDEX_XSLT) $(INDEX_XML)
 

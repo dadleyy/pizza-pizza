@@ -35,7 +35,10 @@ init =
 view : Model -> Html Message
 view model =
     section [ class "pizza-maker" ]
-        [ header [ class "pizza-controls" ] []
+        [ header [ class "pizza-controls" ]
+            [ aside [ class "topping-controls" ] []
+            , aside [ class "order-controls" ] []
+            ]
         , article [ class "pizza-display" ] []
         ]
 
