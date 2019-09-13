@@ -1,45 +1,49 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (article, aside, button, fieldset, legend, option, section, select, span, text)
+import Html exposing (Html, article, aside, button, header, option, section, select, text)
 import Html.Attributes exposing (class, disabled, selected, value)
 import Html.Events exposing (onClick, onInput)
 
-main : Program () () ()
+
+type Model
+    = Pizza
+
+
+type Message
+    = Change
+
+
+main : Program () Model Message
 main =
-    Browser.document
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
+    Browser.sandbox { init = init, view = view, update = update }
+
+
 
 -- INIT
 
 
-init : () -> ( (), Cmd msg )
-init _ =
-    ( (), Cmd.none )
+init : Model
+init =
+    Pizza
 
 
 
 -- VIEW
 
-view : () -> Browser.Document ()
+
+view : Model -> Html Message
 view model =
-    { title = "pizza pizza"
-    , body = [section [] []]
-    }
+    section [ class "pizza-maker" ]
+        [ header [ class "pizza-controls" ] []
+        , article [ class "pizza-display" ] []
+        ]
+
+
 
 -- UPDATE
 
-update : () -> () -> ( (), Cmd msg )
+
+update : Message -> Model -> Model
 update msg model =
-  ( model, Cmd.none )
-
-
--- Subscribe
-
-subscriptions : () -> Sub msg
-subscriptions model =
-    Sub.none
+    model
